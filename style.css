@@ -1,0 +1,182 @@
+/* Base */
+@layer base {
+    body {
+        cursor: default;
+    }
+}
+
+/* UI Enhancements */
+@layer components {
+    .glass-card {
+        background: rgba(15, 15, 18, 0.7);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-primary {
+        @apply bg-accent text-white px-10 py-4 rounded-xl font-extrabold text-sm uppercase 
+               tracking-widest transition-all duration-300 shadow-[0_0_40px_-10px_rgba(59,130,246,0.5)]
+               hover:shadow-[0_0_50px_-5px_rgba(59,130,246,0.7)] hover:-translate-y-1 active:scale-95;
+    }
+
+    .team-card {
+        @apply text-center transition-opacity hover:opacity-100;
+    }
+}
+
+/* Custom Effects */
+.gradient-text {
+    background: linear-gradient(to right, #ffffff 30%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Grid Background Effect */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #1f1f1f; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+
+/* Efek Spotlight pada Card */
+.glass-card, .group {
+    position: relative;
+}
+
+.glass-card::before, .group::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+        600px circle at var(--mouse-x) var(--mouse-y),
+        rgba(59, 130, 246, 0.08),
+        transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.glass-card:hover::before, .group:hover::before {
+    opacity: 1;
+}
+
+/* Memastikan konten tetap di atas efek glow */
+.glass-card > *, .group > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Animasi untuk Grid Card saat difilter */
+.game-card {
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hidden-card {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    pointer-events: none;
+    position: absolute;
+}
+
+.game-card:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+/* Animasi Fade In Modal */
+#gameModal.flex {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .modal-grid { grid-template-columns: 1fr; }
+}
+
+/* Tombol Filter */
+.filter-btn {
+    @apply relative px-6 py-2.5 rounded-xl text-[11px] font-extrabold uppercase tracking-widest 
+           transition-all duration-500 overflow-hidden text-gray-500;
+}
+
+/* State Aktif yang Keren */
+.filter-btn.active {
+    @apply text-white;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    box-shadow: 0 8px 20px -6px rgba(59, 130, 246, 0.5),
+                inset 0 -2px 0 rgba(0,0,0,0.2);
+}
+
+/* Animasi Fade untuk Grid */
+#game-container.fade-out {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.filter-btn:hover {
+    @apply text-gray-300;
+}
+
+/* Container Filter */
+.filter-wrapper {
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Tambahan styling agar item list enak dilihat */
+.category-item {
+    @apply w-full text-left px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:bg-accent/10 hover:text-white transition-all duration-200;
+}
+
+/* State Aktif untuk item */
+.category-item.selected {
+    @apply bg-accent text-white;
+}
+
+/* Pastikan ini ada di style.css */
+#dropdown-menu {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Class ini yang akan dipasang via JavaScript */
+#dropdown-menu.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+}
+
+/* Rotasi icon panah */
+#dropdown-icon.rotate {
+    transform: rotate(180deg);
+}
+
+
+/* Styling kartu kecil di bawah */
+.sosmed-small-card {
+    @apply flex items-center justify-between p-6 rounded-[1.5rem] bg-surface border border-white/5 
+           transition-all duration-300 hover:bg-white/5 hover:scale-[1.02];
+}
+
+/* Tambahan agar font Discord makin cakep */
+.italic {
+    font-style: italic;
+}
